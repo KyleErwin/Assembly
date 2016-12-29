@@ -1,0 +1,70 @@
+     1                                 %line 1+1 count.asm
+     2                                 [segment .data]
+     3 00000000 00                      input: db 0
+     4                                 
+     5                                 [segment .bss]
+     6                                 
+     7 00000000 0A                      newLine: db 0x0a
+     8                                 
+     9                                 [segment .text]
+    10                                 [global _start]
+    11                                 
+    12                                 _start:
+    13                                 
+    14 00000000 48C7C000000000          mov rax, 0
+    15 00000007 48C7C700000000          mov rdi, 0
+    16 0000000E 48C7C202000000          mov rdx, 2
+    17 00000015 48C7C6[00000000]        mov rsi, input
+    18 0000001C 0F05                    syscall
+    19                                 
+    20                                 
+    21 0000001E 48C7C301000000          mov rbx, 1
+    22                                 
+    23                                 
+    24                                 while:
+    25 00000025 4883FB0C                cmp rbx, 12
+    26 00000029 7F52                    jg end_while
+    27 0000002B 48FFC3                  inc rbx
+    28                                 
+    29                                 
+    30 0000002E 48C7C001000000          mov rax, 1
+    31 00000035 48C7C701000000          mov rdi, 1
+    32 0000003C 48C7C201000000          mov rdx, 1
+    33 00000043 48C7C6[00000000]        mov rsi, input
+    34 0000004A 0F05                    syscall
+    35                                 
+    36 0000004C 480FB60425[00000000]      movzx rax, byte [input]
+    37 00000055 4883F87A                cmp rax, 'z'
+    38 00000059 7422                    je end_while
+    39 0000005B 4883F839                cmp rax, '9'
+    40 0000005F 7400                    je becomeCharacter
+    41 00000061 750C                    jne increment
+    42                                 
+    43                                 becomeCharacter:
+    44 00000063 4883C028                add rax, 40
+    45 00000067 48890425[00000000]      mov [input], rax
+    46 0000006F EBB2                    jmp while
+    47                                 
+    48                                 increment:
+    49                                 
+    50 00000071 4883C001                add rax, 1
+    51                                 
+    52                                 
+    53 00000075 48890425[00000000]      mov [input], rax
+    54                                 
+    55                                 
+    56 0000007D EBA4                    jmp while
+    57                                 
+    58                                 end_while:
+    59                                 
+    60                                 
+    61 0000007F 48C7C001000000          mov rax, 1
+    62 00000086 48C7C701000000          mov rdi, 1
+    63 0000008D 48C7C202000000          mov rdx, 2
+    64 00000094 488B3425[00000000]      mov rsi, [newLine]
+    65 0000009C 0F05                    syscall
+    66                                 
+    67                                 
+    68 0000009E 48C7C03C000000          mov rax, 60
+    69 000000A5 4831FF                  xor rdi, rdi
+    70 000000A8 0F05                    syscall

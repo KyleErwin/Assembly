@@ -1,0 +1,35 @@
+     1                                 %line 1+1 Task1.asm
+     2                                 [segment .data]
+     3 00000000 0A                      input: db "", 0x0a
+     4                                 
+     5 00000001 5C6E0A                  newLine: db "\n", 0x0a
+     6                                 
+     7                                 [segment .text]
+     8                                 [global _start]
+     9                                 
+    10                                 _start:
+    11                                 
+    12 00000000 B800000000              mov eax, 0
+    13 00000005 BF00000000              mov edi, 0
+    14 0000000A BA0C000000              mov edx, 12
+    15 0000000F 48C7C6[00000000]        mov rsi, input
+    16 00000016 0F05                    syscall
+    17                                 
+    18                                 
+    19 00000018 B801000000              mov eax, 1
+    20 0000001D BF01000000              mov edi, 1
+    21 00000022 BA0C000000              mov edx, 12
+    22 00000027 48C7C6[00000000]        mov rsi, input
+    23 0000002E 0F05                    syscall
+    24                                 
+    25                                 
+    26 00000030 B801000000              mov eax, 1
+    27 00000035 BF01000000              mov edi, 1
+    28 0000003A BA00000000              mov edx, 0
+    29 0000003F 488D3425[00000000]      lea rsi,[newLine]
+    30 00000047 0F05                    syscall
+    31                                 
+    32                                 
+    33 00000049 B83C000000              mov eax, 60
+    34 0000004E 31FF                    xor edi, edi
+    35 00000050 0F05                    syscall
