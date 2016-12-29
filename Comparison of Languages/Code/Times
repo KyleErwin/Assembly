@@ -1,0 +1,14 @@
+Average Assembly time: 0.7780900000
+Min Assembly time: 0.2510000000
+
+Average C++ time: 2.3481700000
+Min C++ time: 1.9510000000
+
+Average Cobol time: 9.3799900000
+Min Cobol time: 7.4340000000
+
+Average Fotran time: 3.1186800000
+Min Fotran time: 2.0700000000
+
+Average Lisp time: 24.8727500000
+Min Lisp time: 15.3510000000

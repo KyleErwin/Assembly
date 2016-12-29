@@ -1,0 +1,60 @@
+     1                                 %line 1+1 div.asm
+     2                                 [segment .data]
+     3 00000000 0000                    value1: dw "", 0
+     4 00000002 0000                    value2: dw "", 0
+     5 00000004 0000                    quotient: dw "", 0
+     6                                 
+     7                                 
+     8 00000006 0A                      newLine: db 0x0a
+     9                                 
+    10                                 [segment .text]
+    11                                 [global _start]
+    12                                 
+    13                                 _start:
+    14                                 
+    15 00000000 48C7C000000000          mov rax, 0
+    16 00000007 48C7C700000000          mov rdi, 0
+    17 0000000E 48C7C202000000          mov rdx, 2
+    18 00000015 48C7C6[00000000]        mov rsi, value1
+    19 0000001C 0F05                    syscall
+    20                                 
+    21                                 
+    22 0000001E 48C7C000000000          mov rax, 0
+    23 00000025 48C7C700000000          mov rdi, 0
+    24 0000002C 48C7C202000000          mov rdx, 2
+    25 00000033 48C7C6[00000000]        mov rsi, value2
+    26 0000003A 0F05                    syscall
+    27                                 
+    28                                 
+    29 0000003C 8A1C25[00000000]        mov bl, [value1]
+    30 00000043 80EB30                  sub bl, "0"
+    31 00000046 881C25[00000000]        mov [value1], bl
+    32                                 
+    33                                 
+    34 0000004D 8A0425[00000000]        mov al, [value2]
+    35 00000054 2C30                    sub al, "0"
+    36 00000056 880425[00000000]        mov [value2], al
+    37                                 
+    38                                 
+    39 0000005D 48C7C200000000          mov rdx, 0
+    40 00000064 F6FB                    idiv bl
+    41 00000066 0430                    add al, "0"
+    42 00000068 880425[00000000]        mov [quotient], al
+    43                                 
+    44                                 
+    45 0000006F 48C7C001000000          mov rax, 1
+    46 00000076 48C7C701000000          mov rdi, 1
+    47 0000007D 48C7C201000000          mov rdx, 1
+    48 00000084 48C7C6[00000000]        mov rsi, quotient
+    49 0000008B 0F05                    syscall
+    50                                 
+    51                                 
+    52 0000008D 48C7C202000000          mov rdx, 2
+    53 00000094 48C7C6[00000000]       mov rsi, newLine
+    54 0000009B 0F05                    syscall
+    55                                 
+    56                                 
+    57                                 
+    58 0000009D 48C7C03C000000          mov rax, 60
+    59 000000A4 4831FF                  xor rdi, rdi
+    60 000000A7 0F05                    syscall
